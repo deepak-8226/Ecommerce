@@ -4,6 +4,7 @@ import {
   setDetails,
   setAllCategory,
   setWishDelete,
+  singleBuyProduct,
 } from "../redux/actions/UserActions";
 import { WhatsappIcon, WhatsappShareButton } from "react-share";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,7 @@ const ProductCard = (props) => {
   const dispatch = useDispatch();
   const CartData = useSelector((state) => state.AllCart.carts);
   const Wish = useSelector((state) => state.AllWishData.wish);
-  // const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(false);
   const [wish, setWish] = useState(false);
 
   const Token = JSON.parse(localStorage?.getItem("user"));
@@ -50,16 +51,16 @@ const ProductCard = (props) => {
   //   dispatch(setDelete(dlt));
   // };
 
-  // const res = CartData.filter((elem) => {
-  //   return elem.id === props.val.id;
-  // });
+  const res = CartData.filter((elem) => {
+    return elem.id === props.val.id;
+  });
 
   useEffect(() => {
-    // if (res.length > 0) {
-    //   setHide(false);
-    // } else {
-    //   setHide(true);
-    // }
+    if (res.length > 0) {
+      setHide(false);
+    } else {
+      setHide(true);
+    }
     if (result.length > 0) {
       setWish(false);
     } else {
@@ -89,16 +90,25 @@ const ProductCard = (props) => {
     setWishDelete(provide);
   };
 
+  // const singleBuy = (i) => {
+  //   props.val.qty = 1;
+  //   dispatch(singleBuyProduct(i));
+  // };
+
   return (
     <>
       <div className="grid grid-cols-4 m-4 border hover:bg-black/5">
         <div className="h-100 w-80 mx-auto my-2 rounded-md p-4 hover:drop-shadow-2xl">
-          <img
-            src={props.val.thumbnail}
-            alt=""
-            srcSet=""
-            className="w-64 h-48 mx-auto"
-          />
+          <Link href={`Product/${props.val.id}`}>
+            <div onClick={() => handleDetail(props.val.id, props.val.category)}>
+              <img
+                src={props.val.thumbnail}
+                alt=""
+                srcSet=""
+                className="w-64 h-48 mx-auto"
+              />
+            </div>
+          </Link>
           <span className="rounded-lg flex py-1 px-1 my-2 w-[68px] align-middle   ml-3">
             <p className="ml-2 text-center ">
               <Star stars={props.val.rating} />
@@ -107,14 +117,22 @@ const ProductCard = (props) => {
           <div className="heart ml-20">
             {wish ? (
               <button
-                style={{ position: "relative", bottom: "32px", left: "160px" }}
+                style={{
+                  position: "relative",
+                  bottom: "32px",
+                  left: "160px",
+                }}
                 onClick={() => handleWish(props.val)}
               >
                 <AiOutlineHeart size={20} />
               </button>
             ) : (
               <button
-                style={{ position: "relative", bottom: "32px", left: "160px" }}
+                style={{
+                  position: "relative",
+                  bottom: "32px",
+                  left: "160px",
+                }}
                 onClick={() => removeWish(props.val.id)}
                 className="text-red-500"
               >
@@ -141,30 +159,31 @@ const ProductCard = (props) => {
               Rs:
               <span className="font-bold text-red-600">{props.val.price}</span>
             </p>
-            {/* {hide ? ( */}
-            <button
-              className="hover:bg-slate-200  text-blue-900 font-semibold rounded-md p-1"
-              onClick={(e) => handleAddCart(props.val, e)}
-            >
-              Add
-            </button>
-            {/* ) : (
+            {hide ? (
               <button
-                className=" text-red-600 font-semibold"
-                onClick={(e) => handlerRemove(props.val.id, e)}
+                className="hover:bg-slate-200  text-blue-900 font-semibold rounded-md p-1"
+                onClick={(e) => handleAddCart(props.val, e)}
               >
-                Del
+                Add Cart
               </button>
-            )} */}
-
-            <Link href={`Product/${props.val.id && props.val.description}`}>
+            ) : (
+              <Link href="/Addcart">
+                <button
+                  className="hover:bg-slate-200  text-orange-600 font-semibold rounded-md p-1"
+                  // onClick={(e) => handlerRemove(props.val.id, e)}
+                >
+                  Go Cart
+                </button>
+              </Link>
+            )}
+            {/* <Link href="/SingleBuy">
               <button
-                className="hover:bg-slate-200 font-semibold rounded-md p-1"
-                onClick={() => handleDetail(props.val.id, props.val.category)}
+                className="my-1 font-semibold"
+                onClick={() => singleBuy(props.val)}
               >
-                Details
+                Buy
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

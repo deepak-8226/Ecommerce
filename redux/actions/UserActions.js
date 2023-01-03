@@ -181,3 +181,10 @@ export const setHomeDesignDetails = (item) => {
     payload: item,
   };
 };
+
+export const singleBuyProduct = (i) => {
+  return {
+    type: ActionTypes.BUY_SINGLE_PRODUCT,
+    payload: i,
+  };
+};

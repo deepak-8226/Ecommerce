@@ -5,6 +5,7 @@ const intialState = {
   products: [],
   carts: [],
   details: [],
+  singledetails: [],
   wish: [],
   search: [],
   productCategory: [],
@@ -14,6 +15,7 @@ const intialState = {
   orders: [],
   address: [],
   designdetails: [],
+  singlebuyproduct: [],
 };
 
 export const setAllProductsReducer = (
@@ -225,6 +227,21 @@ export const setHomeDesignDetailsReducer = (
       return {
         ...state,
         designdetails: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const singleBuyProductReducer = (
+  state = intialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case ActionTypes.BUY_SINGLE_PRODUCT:
+      return {
+        ...state,
+        singlebuyproduct: payload,
       };
     default:
       return state;

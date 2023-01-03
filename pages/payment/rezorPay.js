@@ -5,15 +5,15 @@ import { OrderItems, RemoveCart } from "../../redux/actions/UserActions";
 const RezorPay = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-
   const value = useSelector((state) => state.AllCart.carts);
+
 
   const item = value.reduce((total, item) => {
     return total + item.price;
   }, 0);
 
   const handlePay = (amt) => {
-    const amount = amt *100; // Razorpay consider the amount in paise
+    const amount = amt * 100; // Razorpay consider the amount in paise
     const options = {
       key: "rzp_test_02vLsEiaSZpVrE",
       amount: amount, // 2000 paise = INR 20, amount in paisa

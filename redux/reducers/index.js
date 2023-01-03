@@ -11,8 +11,8 @@ import {
   setIncDecReducer,
   setOrderItemReducer,
   setAddressReducer,
-  setLoginReducer,
   setHomeDesignDetailsReducer,
+  singleBuyProductReducer,
 } from "./UserReducers";
 const reducers = combineReducers({
   TotalProduct: setAllProductsReducer,
@@ -26,7 +26,7 @@ const reducers = combineReducers({
   IncDec: setIncDecReducer,
   Order: setOrderItemReducer,
   Address: setAddressReducer,
-  LoginData: setLoginReducer,
   designDetails: setHomeDesignDetailsReducer,
+  BuysingleProduct: singleBuyProductReducer,
 });
 export default reducers;

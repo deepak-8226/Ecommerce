@@ -1,17 +1,25 @@
+import Link from "next/link";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import ImageSelected from "../../Components/ImageSelect";
 import Star from "../../Components/Star";
+import { singleBuyProduct } from "../../redux/actions/UserActions";
 
 const ProDuct = () => {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.AllDetail.details);
+
   const Category = useSelector(
     (state) => state.ProductCategory.productCategory
   );
 
   const Result = Category.filter((category) => category.id !== detail.id);
 
+  const newbuy = (i) => {
+    detail.qty = 1;
+    dispatch(singleBuyProduct(i));
+    
+  };
   return (
     <>
       <div className="grid mt-6 grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-3 justify-center shadow ">
@@ -36,9 +44,19 @@ const ProDuct = () => {
             <p className=" text-lg font-bold font-mono ml-3">
               Rs: <span className="text-2xl text-red-600">{detail.price}</span>
             </p>
-            <span>
+            <span className="my-2">
               <Star stars={detail.rating} />
             </span>
+          </div>
+          <div className="mx-6">
+            <Link href="/SingleBuy">
+              <button
+                onClick={() => newbuy(detail)}
+                className="bg-orange-400 m-5 p-1 px-4 font-semibold text-white rounded-md"
+              >
+                Buy
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -55,7 +73,7 @@ const ProDuct = () => {
         />
       </div>
       <h1 className="font-bold text-2xl mx-3 my-3 text-indigo-600">
-        Similer Products{" "}
+        Similer Products
       </h1>
       <div className="m-10 flex ">
         {Result?.map((list) => {

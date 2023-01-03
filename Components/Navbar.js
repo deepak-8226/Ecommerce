@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import ProductCard from "../pages/ProductCard";
 import { setSearch } from "../redux/actions/UserActions";
 import { HiShoppingCart } from "react-icons/hi";
 import AboutMenu from "./AboutMenu";
@@ -9,6 +8,7 @@ import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [isCount, setisCount] = useState(0);
+  const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -21,13 +21,12 @@ const Navbar = () => {
   });
 
   const handleSearch = (e) => {
-    dispatch(setSearch(e.target.value));
+    setValue(e.target.value);
+  };
+  const handleDispatch = (searchTerm) => {
+    dispatch(setSearch(searchTerm));
 
-    if (e.target.value) {
-      router.push("/SearchData");
-    } else {
-      router.push("/");
-    }
+    router.push("/SearchData");
   };
 
   return (
@@ -48,13 +47,21 @@ const Navbar = () => {
             </div>
 
             <div className="search ">
-              <input
-                style={{ position: "relative", right: "30%" }}
-                className="text-center w-[300px] h-7 border rounded-sm hover:bg-black/10"
-                type="search"
-                placeholder="Search"
-                onChange={(e) => handleSearch(e)}
-              />
+              <div className="mr-14">
+                <input
+                  style={{ position: "relative" }}
+                  className="text-center w-[300px] h-7 border rounded-sm hover:bg-black/10"
+                  type="search"
+                  placeholder="Search"
+                  onChange={(e) => handleSearch(e)}
+                />
+                <button
+                  className="text-base font-bold  text-gray-500 hover:text-gray-900 px-2 "
+                  onClick={() => handleDispatch(value)}
+                >
+                  Search
+                </button>
+              </div>
             </div>
             <nav className="hidden md:flex space-x-10">
               <Link href="/">
