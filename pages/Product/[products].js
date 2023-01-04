@@ -18,7 +18,6 @@ const ProDuct = () => {
   const newbuy = (i) => {
     detail.qty = 1;
     dispatch(singleBuyProduct(i));
-    
   };
   return (
     <>
@@ -64,9 +63,10 @@ const ProDuct = () => {
         <img
           className=""
           style={{
+            paddingLeft: "250px",
             position: "absolute",
-            left: "62%",
-            bottom: "33%",
+            left: "45%",
+            bottom: "18%",
             height: "40%",
           }}
           src="https://w7.pngwing.com/pngs/397/527/png-transparent-new-product-development-graphy-advertising-coming-soon-miscellaneous-emblem-text.png"
