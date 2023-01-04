@@ -17,7 +17,7 @@ const ProDuct = () => {
 
   const newbuy = (i) => {
     detail.qty = 1;
-    dispatch(singleBuyProduct(i));  
+    dispatch(singleBuyProduct(i));
   };
   return (
     <>
